@@ -1,0 +1,3 @@
+This file is licensed as part of PowerShell by Microsoft (R).
+
+It is excluded from the project license.
