@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TpmFingerprint", "TpmFingerprint\TpmFingerprint.csproj", "{B96389AB-34AE-43AB-821A-04DFBBAE8E60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TpmFingerprint.UI", "TpmFingerprint.UI\TpmFingerprint.UI.csproj", "{77D8426C-53F1-4737-9E6F-D2CD76CC6525}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B96389AB-34AE-43AB-821A-04DFBBAE8E60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B96389AB-34AE-43AB-821A-04DFBBAE8E60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B96389AB-34AE-43AB-821A-04DFBBAE8E60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77D8426C-53F1-4737-9E6F-D2CD76CC6525}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D8426C-53F1-4737-9E6F-D2CD76CC6525}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77D8426C-53F1-4737-9E6F-D2CD76CC6525}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77D8426C-53F1-4737-9E6F-D2CD76CC6525}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
