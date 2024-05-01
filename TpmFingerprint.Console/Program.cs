@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using TpmFingerprint.Lib;
+using static System.Console;
 
-namespace TpmFingerprint
+namespace TpmFingerprint.Console
 {
     internal class Program
     {
@@ -14,7 +15,7 @@ namespace TpmFingerprint
 
             if (args.Contains("/?"))
             {
-                Console.WriteLine(@"TpmFingerprint [/V] [/B64]
+                WriteLine(@"TpmFingerprint [/V] [/B64]
 Reads the unique operating system independent fingerprint of this device.
 The fingerprint is guaranteed to be unchangeable.
 
@@ -40,7 +41,7 @@ Exit codes:
             {
                 if (verbose)
                 {
-                    Console.Error.WriteLine("This system lacks a compatible TPM");
+                    Error.WriteLine("This system lacks a compatible TPM");
                 }
                 return 1;
             }
@@ -48,7 +49,7 @@ Exit codes:
             {
                 if (verbose)
                 {
-                    Console.Error.WriteLine("TPM doesn't contains an endorsement key. Maybe it's not initialized");
+                    Error.WriteLine("TPM doesn't contains an endorsement key. Maybe it's not initialized");
                 }
                 return 2;
             }
@@ -57,24 +58,24 @@ Exit codes:
                 TpmAdapter.PrintTpmInformation();
                 if (tpmKey.PublicKey.Oid != null)
                 {
-                    Console.Error.WriteLine("PublicKeyType={0}",
+                    Error.WriteLine("PublicKeyType={0}",
                         tpmKey.PublicKey.Oid.FriendlyName ?? tpmKey.PublicKey.Oid.Value);
                 }
 
-                Console.Error.WriteLine("PublicKey={0}",
+                Error.WriteLine("PublicKey={0}",
                     Convert.ToBase64String(tpmKey.PublicKey.RawData));
                 foreach (var mancert in tpmKey.ManufacturerCertificates)
                 {
-                    Console.Error.WriteLine("ManufacturerCert={1} {0}",
+                    Error.WriteLine("ManufacturerCert={1} {0}",
                         FormatCert(mancert), mancert.Thumbprint.ToUpper());
                 }
                 foreach (var addcert in tpmKey.AdditionalCertificates)
                 {
-                    Console.Error.WriteLine("AdditionalTpmCert={1} {0}",
+                    Error.WriteLine("AdditionalTpmCert={1} {0}",
                         FormatCert(addcert), addcert.Thumbprint.ToUpper());
                 }
             }
-            Console.WriteLine(b64
+            WriteLine(b64
                 ? Tools.HashB64(tpmKey.PublicKey.RawData)
                 : Tools.HashHex(tpmKey.PublicKey.RawData));
             return 0;
