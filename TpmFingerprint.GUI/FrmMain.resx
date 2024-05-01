@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LblInfo.Text" xml:space="preserve">
-    <value>This is your unique TPM Fingerprint. Software running on this Computer can use it to track you, or to enforce "broken by design" DRM mechanisms on you. The Fingerprint does not change when you reinstall your operating system or change most  hardware. Only when the TPM is changed will you get a new fingerprint.
-The module can be installed as an external chip that plugs into your mainboard, be hardwired into the mainboard, or software emulated inside of the Processor. Only the external type is cheap to replace.</value>
+    <value>This is your unique TPM fingerprint. Software running on this computer can use it to track you, or to enforce "broken by design" DRM mechanisms on you. The fingerprint does not change when you reinstall your operating system or change most hardware. Only when the TPM itself is replaced will you get a new fingerprint.
+The module can be installed as an external chip that plugs into your mainboard, be hardwired into the mainboard, or software emulated inside of the processor. Only the external type is cheap to replace.</value>
   </data>
 </root>

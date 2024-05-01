@@ -37,7 +37,7 @@
             // BtnCopy
             // 
             this.BtnCopy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnCopy.Location = new System.Drawing.Point(697, 12);
+            this.BtnCopy.Location = new System.Drawing.Point(497, 12);
             this.BtnCopy.Name = "BtnCopy";
             this.BtnCopy.Size = new System.Drawing.Size(75, 23);
             this.BtnCopy.TabIndex = 0;
@@ -53,7 +53,7 @@
             this.LblInfo.AutoEllipsis = true;
             this.LblInfo.Location = new System.Drawing.Point(12, 48);
             this.LblInfo.Name = "LblInfo";
-            this.LblInfo.Size = new System.Drawing.Size(760, 84);
+            this.LblInfo.Size = new System.Drawing.Size(560, 84);
             this.LblInfo.TabIndex = 1;
             this.LblInfo.Text = resources.GetString("LblInfo.Text");
             // 
@@ -64,14 +64,14 @@
             this.TbFingerprint.Location = new System.Drawing.Point(12, 14);
             this.TbFingerprint.Name = "TbFingerprint";
             this.TbFingerprint.ReadOnly = true;
-            this.TbFingerprint.Size = new System.Drawing.Size(679, 20);
+            this.TbFingerprint.Size = new System.Drawing.Size(479, 20);
             this.TbFingerprint.TabIndex = 2;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 141);
+            this.ClientSize = new System.Drawing.Size(584, 141);
             this.Controls.Add(this.TbFingerprint);
             this.Controls.Add(this.LblInfo);
             this.Controls.Add(this.BtnCopy);
