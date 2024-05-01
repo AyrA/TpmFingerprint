@@ -1,14 +1,32 @@
 ﻿using Microsoft.Tpm.Commands;
 using System;
 using System.Linq;
+using System.Security.Cryptography;
 
-namespace TpmFingerprint
+namespace TpmFingerprint.Lib
 {
     public static class TpmAdapter
     {
-        public static EndorsementKeyObject GetEK()
+        private static EndorsementKeyObject keyObject = null;
+        private static byte[] fingerprint = null;
+
+        public static byte[] GetFingerprint()
         {
-            return new EndorsementKeyObject("SHA256");
+            if (fingerprint == null)
+            {
+                var key = GetEK();
+                using (var hasher = SHA256.Create())
+                {
+                    fingerprint = hasher.ComputeHash(key.PublicKey.RawData);
+                }
+            }
+            return (byte[])fingerprint.Clone();
+        }
+
+        public static TpmKeyInfo GetKeyInfo()
+        {
+            var ek = GetEK();
+            return new TpmKeyInfo(ek);
         }
 
         public static void PrintTpmInformation()
@@ -83,21 +101,20 @@ namespace TpmFingerprint
             Console.ResetColor();
         }
 
-        private enum AutoProvisioningTypes
+        private static EndorsementKeyObject GetEK()
         {
-            NotDefined = -1,
-            Enabled,
-            Disabled,
-            DisabledForNextBoot
-        }
-
-        [Flags]
-        private enum ManagedAuthLevels
-        {
-            Unknown = -1,
-            None = 0,
-            Delegated = 2,
-            Full = 4
+            if (keyObject == null)
+            {
+                try
+                {
+                    keyObject = new EndorsementKeyObject("SHA256");
+                }
+                catch (TrustedPlatformModuleNotFoundException)
+                {
+                    throw new TpmNotFoundException();
+                }
+            }
+            return keyObject;
         }
     }
 }

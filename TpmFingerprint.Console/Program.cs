@@ -1,8 +1,7 @@
-﻿using Microsoft.Tpm.Commands;
-using System;
+﻿using System;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using TpmFingerprint.Lib;
 
 namespace TpmFingerprint
 {
@@ -32,12 +31,12 @@ Exit codes:
 0   - Success, standard output consists of the hex encoded SHA256 value");
                 return 255;
             }
-            EndorsementKeyObject ek;
+            TpmKeyInfo tpmKey;
             try
             {
-                ek = TpmAdapter.GetEK();
+                tpmKey = TpmAdapter.GetKeyInfo();
             }
-            catch (TrustedPlatformModuleNotFoundException)
+            catch (TpmNotFoundException)
             {
                 if (verbose)
                 {
@@ -45,7 +44,7 @@ Exit codes:
                 }
                 return 1;
             }
-            if (!ek.IsPresent)
+            if (!tpmKey.IsPresent)
             {
                 if (verbose)
                 {
@@ -56,45 +55,29 @@ Exit codes:
             if (verbose)
             {
                 TpmAdapter.PrintTpmInformation();
-                if (ek.PublicKey.Oid != null)
+                if (tpmKey.PublicKey.Oid != null)
                 {
                     Console.Error.WriteLine("PublicKeyType={0}",
-                        ek.PublicKey.Oid.FriendlyName ?? ek.PublicKey.Oid.Value);
+                        tpmKey.PublicKey.Oid.FriendlyName ?? tpmKey.PublicKey.Oid.Value);
                 }
 
                 Console.Error.WriteLine("PublicKey={0}",
-                    Convert.ToBase64String(ek.PublicKey.RawData));
-                foreach (var mancert in ek.ManufacturerCertificates)
+                    Convert.ToBase64String(tpmKey.PublicKey.RawData));
+                foreach (var mancert in tpmKey.ManufacturerCertificates)
                 {
                     Console.Error.WriteLine("ManufacturerCert={1} {0}",
                         FormatCert(mancert), mancert.Thumbprint.ToUpper());
                 }
-                foreach (var addcert in ek.AdditionalCertificates)
+                foreach (var addcert in tpmKey.AdditionalCertificates)
                 {
                     Console.Error.WriteLine("AdditionalTpmCert={1} {0}",
                         FormatCert(addcert), addcert.Thumbprint.ToUpper());
                 }
             }
             Console.WriteLine(b64
-                ? HashB64(ek.PublicKey.RawData)
-                : HashHex(ek.PublicKey.RawData));
+                ? Tools.HashB64(tpmKey.PublicKey.RawData)
+                : Tools.HashHex(tpmKey.PublicKey.RawData));
             return 0;
-        }
-
-        static string HashHex(byte[] data)
-        {
-            using (var hasher = SHA256.Create())
-            {
-                return string.Concat(hasher.ComputeHash(data).Select(m => m.ToString("X2")));
-            }
-        }
-
-        static string HashB64(byte[] data)
-        {
-            using (var hasher = SHA256.Create())
-            {
-                return Convert.ToBase64String(hasher.ComputeHash(data));
-            }
         }
 
         static string FormatCert(X509Certificate2 cert)
