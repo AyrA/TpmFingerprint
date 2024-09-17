@@ -27,6 +27,7 @@ Reading the fingerprint requires administrative permissions.
 Exit codes:
 
 255 - This help screen was shown in response to '/?' argument
+3   - Other error
 2   - No EK is present
 1   - No compatible TPM is present
 0   - Success, standard output consists of the hex encoded SHA256 value");
@@ -44,6 +45,11 @@ Exit codes:
                     Error.WriteLine("This system lacks a compatible TPM");
                 }
                 return 1;
+            }
+            catch (Exception ex)
+            {
+                Error.WriteLine("Failed to obtain fingerprint from TPM.\r\n{0}: {1}", ex.GetType().Name, ex.Message);
+                return 3;
             }
             if (!tpmKey.IsPresent)
             {
