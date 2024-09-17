@@ -6,11 +6,16 @@ namespace TpmFingerprint.Lib
 {
     public static class Tools
     {
+        public static string Hex(byte[] data)
+        {
+            return string.Concat(data.Select(m => m.ToString("X2")));
+        }
+
         public static string HashHex(byte[] data)
         {
             using (var hasher = SHA256.Create())
             {
-                return string.Concat(hasher.ComputeHash(data).Select(m => m.ToString("X2")));
+                return Hex(hasher.ComputeHash(data));
             }
         }
 
