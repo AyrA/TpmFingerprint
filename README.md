@@ -1,13 +1,21 @@
 # TPM Fingerprint Utility
 
-This command line utility prints the globally unique TPM fingerprint of the current device.
+This utility shows the globally unique TPM fingerprint of the current device.
 
-## Usage
+Extracting the id requires administrative permissions.
+The applications will automatically ask for this if necessary upon launch.
 
-Simply run the program on the command line. Use `/?` argument for help.
-The output will consist of the hex encoded fingerprint.
+## Command Line Usage
 
-If no output is generated (and the exit code is nonzero), the fingerptint cannot be obtained.
-Use the help for more details.
+Prints the hex encoded id if run without arguments.
 
-Requires administrative permissions to run.
+- `/V`: Show additional properties
+- `/B64`: Print id as base64 encoded instead of hex encoded
+- `/?`: Show help
+
+If the fingerptint cannot be obtained, a nonzero exit code is returned.
+Use the help for more details on exit codes.
+
+## UI Usage
+
+Simply double click the executable. It immediately shows the id.
