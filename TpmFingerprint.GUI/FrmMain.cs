@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 using TpmFingerprint.Lib;
 
@@ -6,6 +7,8 @@ namespace TpmFingerprint.GUI
 {
     public partial class FrmMain : Form
     {
+        byte[] fingerprint;
+
         public FrmMain()
         {
             InitializeComponent();
@@ -13,11 +16,10 @@ namespace TpmFingerprint.GUI
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            byte[] key;
             try
             {
-                key = TpmAdapter.GetFingerprint();
-                TbFingerprint.Text = Tools.HashHex(key);
+                fingerprint = TpmAdapter.GetFingerprint();
+                TbFingerprint.Text = Tools.Hex(fingerprint);
             }
             catch (Exception ex)
             {
@@ -26,6 +28,8 @@ namespace TpmFingerprint.GUI
                     "Unable to retrieve TPM fingerprint",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                TbFingerprint.Text = ex.Message;
+                TbFingerprint.Enabled = BtnCopy.Enabled = RbHex.Enabled = RbBase64.Enabled = false;
             }
 
         }
@@ -49,6 +53,36 @@ namespace TpmFingerprint.GUI
                     "Empty value",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
+            }
+        }
+
+        private void RbHex_CheckedChanged(object sender, EventArgs e)
+        {
+            if (RbHex.Checked)
+            {
+                TbFingerprint.Text = Tools.Hex(fingerprint);
+            }
+            else
+            {
+                TbFingerprint.Text = Convert.ToBase64String(fingerprint);
+            }
+        }
+
+        private void LblLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(LblLink.Text) { UseShellExecute = true });
+            }
+            catch
+            {
+                Clipboard.Clear();
+                Clipboard.SetText(LblLink.Text);
+                MessageBox.Show(
+                    "Unable to launch your default browser. Link was copied to clipboard instead.",
+                    "URL launch failed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
     }

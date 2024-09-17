@@ -117,8 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LblInfo.Text" xml:space="preserve">
-    <value>This is your unique TPM fingerprint. Software running on this computer can use it to track you, or to enforce "broken by design" DRM mechanisms on you. The fingerprint does not change when you reinstall your operating system or change most hardware. Only when the TPM itself is replaced will you get a new fingerprint.
-The module can be installed as an external chip that plugs into your mainboard, be hardwired into the mainboard, or software emulated inside of the processor. Only the external type is cheap to replace.</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>All kinds of nefarious purposes, for example broken-by-design DRM, hardware bound licensing, and user lockout. You can use it to track this device forever, including but not limited to hardware changes and operating system reinstallation. There's at least one game anti-cheat system that will use it to permanently lock you out of the game. An id that is tainted this way is bad if you buy a used machine, because you're possibly held liable for whatever the previous owner did with it.</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>The id cannot be changed and is burned into the TPM. You have to replace the TPM itself to get a new id. The TPM can be a hardware module, but more commonly is emulated by the firmware. This means you need to replace the mainboard to replace the id.</value>
   </data>
 </root>
